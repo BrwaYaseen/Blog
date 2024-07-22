@@ -1,10 +1,9 @@
 "use client";
 
 import Link from "next/link";
-/* import { Input } from "@/components/ui/input"
- */ import React from "react";
+import { Input } from "@/components/ui/input";
+import React from "react";
 import Image from "next/image";
-
 export default function Component() {
   return (
     <React.Fragment>
