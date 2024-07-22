@@ -6,211 +6,192 @@ import React from "react";
 import Image from "next/image";
 export default function Component() {
   return (
-    <React.Fragment>
-      <main>
-        <section className="w-full py-12 md:py-24 lg:py-32">
-          <div className="container grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-12">
-            <div className="order-2 md:order-1">
-              <Image
-                src="/placeholder.svg"
-                alt="Featured Blog Post"
-                width={600}
-                height={400}
-                className="aspect-[3/2] w-full rounded-lg object-cover"
-              />
-            </div>
-            <div className="order-1 md:order-2 space-y-4">
-              <div className="space-y-2">
-                <div className="inline-block rounded-lg bg-gray-100 px-3 py-1 text-sm dark:bg-gray-800">
-                  Featured
-                </div>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-                  Mastering React Hooks: A Comprehensive Guide
-                </h2>
+    <main>
+      <section className="w-full py-12 md:py-24 lg:py-32">
+        <div className="container grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-12">
+          <div className="order-2 md:order-1">
+            <Image
+              src="/placeholder.svg"
+              alt="Featured Blog Post"
+              width={600}
+              height={400}
+              className="aspect-[3/2] w-full rounded-lg object-cover"
+            />
+          </div>
+          <div className="order-1 md:order-2 space-y-4">
+            <div className="space-y-2">
+              <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">
+                Featured
               </div>
-              <p className="text-gray-500 dark:text-gray-400">
-                Discover the power of React Hooks and how they can transform
-                your development workflow. From useState to useEffect, dive deep
-                into the world of modern React.
-              </p>
-              <div className="flex items-center space-x-4">
-                <Link
-                  href="#"
-                  className="inline-flex h-9 items-center justify-center rounded-md bg-gray-900 px-4 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
-                  prefetch={false}
-                >
-                  Read More
-                </Link>
-                <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
-                  <CalendarDaysIcon className="h-4 w-4" />
-                  <span>May 20, 2024</span>
-                </div>
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+                Mastering React Hooks: A Comprehensive Guide
+              </h2>
+            </div>
+            <p className="text-muted-foreground">
+              Discover the power of React Hooks and how they can transform your
+              development workflow. From useState to useEffect, dive deep into
+              the world of modern React.
+            </p>
+            <div className="flex items-center space-x-4">
+              <Link
+                href="#"
+                className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                prefetch={false}
+              >
+                Read More
+              </Link>
+              <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                <CalendarDaysIcon className="h-4 w-4" />
+                <span>May 20, 2024</span>
               </div>
             </div>
           </div>
-        </section>
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800">
-          <div className="container grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-12">
-            <div className="group">
-              <Link href="#" prefetch={false}>
-                <div className="relative h-48 overflow-hidden rounded-lg">
-                  <Image
-                    src="/placeholder.svg"
-                    alt="Blog Post 1"
-                    width={400}
-                    height={300}
-                    className="h-full w-full object-cover transition-all duration-300 group-hover:scale-105"
-                  />
-                </div>
-                <div className="mt-4 space-y-2">
-                  <h3 className="text-lg font-semibold transition-colors group-hover:text-gray-900 dark:group-hover:text-gray-50">
-                    Unleashing the Power of TypeScript: A Beginner&apos;s Guide
-                  </h3>
-                  <p className="text-gray-500 line-clamp-2 dark:text-gray-400">
-                    Explore the benefits of TypeScript and how it can improve
-                    your JavaScript development experience. From basic types to
-                    advanced features, this guide has you covered.
-                  </p>
-                </div>
-              </Link>
-            </div>
-            <div className="group">
-              <Link href="#" prefetch={false}>
-                <div className="relative h-48 overflow-hidden rounded-lg">
-                  <Image
-                    src="/placeholder.svg"
-                    alt="Blog Post 2"
-                    width={400}
-                    height={300}
-                    className="h-full w-full object-cover transition-all duration-300 group-hover:scale-105"
-                  />
-                </div>
-                <div className="mt-4 space-y-2">
-                  <h3 className="text-lg font-semibold transition-colors group-hover:text-gray-900 dark:group-hover:text-gray-50">
-                    Optimizing Your Next.js App: Performance Techniques
-                  </h3>
-                  <p className="text-gray-500 line-clamp-2 dark:text-gray-400">
-                    Discover the best practices for optimizing your Next.js
-                    applications. From code splitting to image optimization,
-                    learn how to create lightning-fast web experiences.
-                  </p>
-                </div>
-              </Link>
-            </div>
-            <div className="group">
-              <Link href="#" prefetch={false}>
-                <div className="relative h-48 overflow-hidden rounded-lg">
-                  <Image
-                    src="/placeholder.svg"
-                    alt="Blog Post 3"
-                    width={400}
-                    height={300}
-                    className="h-full w-full object-cover transition-all duration-300 group-hover:scale-105"
-                  />
-                </div>
-                <div className="mt-4 space-y-2">
-                  <h3 className="text-lg font-semibold transition-colors group-hover:text-gray-900 dark:group-hover:text-gray-50">
-                    Mastering Responsive Design with CSS Grid and Flexbox
-                  </h3>
-                  <p className="text-gray-500 line-clamp-2 dark:text-gray-400">
-                    Learn how to create responsive and adaptive layouts using
-                    the powerful combination of CSS Grid and Flexbox. Unlock the
-                    full potential of modern CSS.
-                  </p>
-                </div>
-              </Link>
-            </div>
-            <div className="group">
-              <Link href="#" prefetch={false}>
-                <div className="relative h-48 overflow-hidden rounded-lg">
-                  <Image
-                    src="/placeholder.svg"
-                    alt="Blog Post 4"
-                    width={400}
-                    height={300}
-                    className="h-full w-full object-cover transition-all duration-300 group-hover:scale-105"
-                  />
-                </div>
-                <div className="mt-4 space-y-2">
-                  <h3 className="text-lg font-semibold transition-colors group-hover:text-gray-900 dark:group-hover:text-gray-50">
-                    Building Accessible Web Applications with ARIA
-                  </h3>
-                  <p className="text-gray-500 line-clamp-2 dark:text-gray-400">
-                    Dive into the world of ARIA (Accessible Rich Internet
-                    Applications) and learn how to create inclusive web
-                    experiences for users with disabilities.
-                  </p>
-                </div>
-              </Link>
-            </div>
-            <div className="group">
-              <Link href="#" prefetch={false}>
-                <div className="relative h-48 overflow-hidden rounded-lg">
-                  <Image
-                    src="/placeholder.svg"
-                    alt="Blog Post 5"
-                    width={400}
-                    height={300}
-                    className="h-full w-full object-cover transition-all duration-300 group-hover:scale-105"
-                  />
-                </div>
-                <div className="mt-4 space-y-2">
-                  <h3 className="text-lg font-semibold transition-colors group-hover:text-gray-900 dark:group-hover:text-gray-50">
-                    Exploring the World of Serverless with AWS Lambda
-                  </h3>
-                  <p className="text-gray-500 line-clamp-2 dark:text-gray-400">
-                    Discover the benefits of serverless computing and how AWS
-                    Lambda can help you build scalable and cost-effective
-                    applications without managing infrastructure.
-                  </p>
-                </div>
-              </Link>
-            </div>
-            <div className="group">
-              <Link href="#" prefetch={false}>
-                <div className="relative h-48 overflow-hidden rounded-lg">
-                  <Image
-                    src="/placeholder.svg"
-                    alt="Blog Post 6"
-                    width={400}
-                    height={300}
-                    className="h-full w-full object-cover transition-all duration-300 group-hover:scale-105"
-                  />
-                </div>
-                <div className="mt-4 space-y-2">
-                  <h3 className="text-lg font-semibold transition-colors group-hover:text-gray-900 dark:group-hover:text-gray-50">
-                    Mastering State Management with Redux
-                  </h3>
-                  <p className="text-gray-500 line-clamp-2 dark:text-gray-400">
-                    Dive deep into the world of Redux, the popular state
-                    management library for React. Learn how to manage complex
-                    application state and improve the overall user experience.
-                  </p>
-                </div>
-              </Link>
-            </div>
-          </div>
-        </section>
-      </main>
-      <footer className="bg-gray-100 py-6 dark:bg-gray-800">
-        <div className="container flex flex-col items-center justify-between gap-4 sm:flex-row">
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            &copy; 2024 Blog. All rights reserved.
-          </p>
-          <nav className="flex gap-4">
-            <Link href="#" className="text-sm hover:underline" prefetch={false}>
-              Privacy
-            </Link>
-            <Link href="#" className="text-sm hover:underline" prefetch={false}>
-              Terms
-            </Link>
-            <Link href="#" className="text-sm hover:underline" prefetch={false}>
-              Contact
-            </Link>
-          </nav>
         </div>
-      </footer>
-    </React.Fragment>
+      </section>
+      <section className="w-full py-12 md:py-24 lg:py-32 bg-muted">
+        <div className="container grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-12">
+          <div className="group">
+            <Link href="#" prefetch={false}>
+              <div className="relative h-48 overflow-hidden rounded-lg">
+                <Image
+                  src="/placeholder.svg"
+                  alt="Blog Post 1"
+                  width={400}
+                  height={300}
+                  className="h-full w-full object-cover transition-all duration-300 group-hover:scale-105"
+                />
+              </div>
+              <div className="mt-4 space-y-2">
+                <h3 className="text-lg font-semibold transition-colors group-hover:text-primary">
+                  Unleashing the Power of TypeScript: A Beginner&apos;s Guide
+                </h3>
+                <p className="text-muted-foreground line-clamp-2">
+                  Explore the benefits of TypeScript and how it can improve your
+                  JavaScript development experience. From basic types to
+                  advanced features, this guide has you covered.
+                </p>
+              </div>
+            </Link>
+          </div>
+          <div className="group">
+            <Link href="#" prefetch={false}>
+              <div className="relative h-48 overflow-hidden rounded-lg">
+                <Image
+                  src="/placeholder.svg"
+                  alt="Blog Post 1"
+                  width={400}
+                  height={300}
+                  className="h-full w-full object-cover transition-all duration-300 group-hover:scale-105"
+                />
+              </div>
+              <div className="mt-4 space-y-2">
+                <h3 className="text-lg font-semibold transition-colors group-hover:text-primary">
+                  Unleashing the Power of TypeScript: A Beginner&apos;s Guide
+                </h3>
+                <p className="text-muted-foreground line-clamp-2">
+                  Explore the benefits of TypeScript and how it can improve your
+                  JavaScript development experience. From basic types to
+                  advanced features, this guide has you covered.
+                </p>
+              </div>
+            </Link>
+          </div>
+          <div className="group">
+            <Link href="#" prefetch={false}>
+              <div className="relative h-48 overflow-hidden rounded-lg">
+                <Image
+                  src="/placeholder.svg"
+                  alt="Blog Post 1"
+                  width={400}
+                  height={300}
+                  className="h-full w-full object-cover transition-all duration-300 group-hover:scale-105"
+                />
+              </div>
+              <div className="mt-4 space-y-2">
+                <h3 className="text-lg font-semibold transition-colors group-hover:text-primary">
+                  Unleashing the Power of TypeScript: A Beginner&apos;s Guide
+                </h3>
+                <p className="text-muted-foreground line-clamp-2">
+                  Explore the benefits of TypeScript and how it can improve your
+                  JavaScript development experience. From basic types to
+                  advanced features, this guide has you covered.
+                </p>
+              </div>
+            </Link>
+          </div>
+          <div className="group">
+            <Link href="#" prefetch={false}>
+              <div className="relative h-48 overflow-hidden rounded-lg">
+                <Image
+                  src="/placeholder.svg"
+                  alt="Blog Post 1"
+                  width={400}
+                  height={300}
+                  className="h-full w-full object-cover transition-all duration-300 group-hover:scale-105"
+                />
+              </div>
+              <div className="mt-4 space-y-2">
+                <h3 className="text-lg font-semibold transition-colors group-hover:text-primary">
+                  Unleashing the Power of TypeScript: A Beginner&apos;s Guide
+                </h3>
+                <p className="text-muted-foreground line-clamp-2">
+                  Explore the benefits of TypeScript and how it can improve your
+                  JavaScript development experience. From basic types to
+                  advanced features, this guide has you covered.
+                </p>
+              </div>
+            </Link>
+          </div>
+          <div className="group">
+            <Link href="#" prefetch={false}>
+              <div className="relative h-48 overflow-hidden rounded-lg">
+                <Image
+                  src="/placeholder.svg"
+                  alt="Blog Post 1"
+                  width={400}
+                  height={300}
+                  className="h-full w-full object-cover transition-all duration-300 group-hover:scale-105"
+                />
+              </div>
+              <div className="mt-4 space-y-2">
+                <h3 className="text-lg font-semibold transition-colors group-hover:text-primary">
+                  Unleashing the Power of TypeScript: A Beginner&apos;s Guide
+                </h3>
+                <p className="text-muted-foreground line-clamp-2">
+                  Explore the benefits of TypeScript and how it can improve your
+                  JavaScript development experience. From basic types to
+                  advanced features, this guide has you covered.
+                </p>
+              </div>
+            </Link>
+          </div>
+          <div className="group">
+            <Link href="#" prefetch={false}>
+              <div className="relative h-48 overflow-hidden rounded-lg">
+                <Image
+                  src="/placeholder.svg"
+                  alt="Blog Post 1"
+                  width={400}
+                  height={300}
+                  className="h-full w-full object-cover transition-all duration-300 group-hover:scale-105"
+                />
+              </div>
+              <div className="mt-4 space-y-2">
+                <h3 className="text-lg font-semibold transition-colors group-hover:text-primary">
+                  Unleashing the Power of TypeScript: A Beginner&apos;s Guide
+                </h3>
+                <p className="text-muted-foreground line-clamp-2">
+                  Explore the benefits of TypeScript and how it can improve your
+                  JavaScript development experience. From basic types to
+                  advanced features, this guide has you covered.
+                </p>
+              </div>
+            </Link>
+          </div>
+          {/* Repeat the above structure for the other 5 blog posts */}
+        </div>
+      </section>
+    </main>
   );
 }
 

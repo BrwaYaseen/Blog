@@ -4,39 +4,35 @@ import { Input } from "./ui/input";
 
 const Navbar = () => {
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-sm dark:bg-gray-950 dark:text-gray-50">
-      <div className="container flex h-16 items-center justify-between px-4 md:px-6">
-        <Link href="#" className="flex items-center space-x-2" prefetch={false}>
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="container flex h-16 items-center justify-between">
+        <Link href="/" className="flex items-center space-x-2">
           <FeatherIcon className="h-6 w-6" />
           <span className="text-lg font-bold">Blog</span>
         </Link>
         <div className="flex items-center space-x-4">
           <nav className="hidden space-x-4 md:flex">
             <Link
-              href="#"
-              className="text-sm font-medium hover:underline"
-              prefetch={false}
+              href="/"
+              className="text-sm font-medium transition-colors hover:text-primary"
             >
               Home
             </Link>
             <Link
-              href="#"
-              className="text-sm font-medium hover:underline"
-              prefetch={false}
+              href="/blog"
+              className="text-sm font-medium transition-colors hover:text-primary"
             >
               Blog
             </Link>
             <Link
-              href="#"
-              className="text-sm font-medium hover:underline"
-              prefetch={false}
+              href="/about"
+              className="text-sm font-medium transition-colors hover:text-primary"
             >
               About
             </Link>
             <Link
-              href="#"
-              className="text-sm font-medium hover:underline"
-              prefetch={false}
+              href="/contact"
+              className="text-sm font-medium transition-colors hover:text-primary"
             >
               Contact
             </Link>
@@ -45,9 +41,9 @@ const Navbar = () => {
             <Input
               type="search"
               placeholder="Search blog..."
-              className="h-9 w-full rounded-md border border-gray-300 bg-white px-4 text-sm shadow-sm transition-colors focus:border-gray-400 focus:outline-none dark:border-gray-700 dark:bg-gray-950 dark:text-gray-50"
+              className="h-9 w-full pr-10"
             />
-            <SearchIcon className="absolute right-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400 dark:text-gray-500" />
+            <SearchIcon className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           </div>
         </div>
       </div>
