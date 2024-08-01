@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className="bg-muted py-6">
       <div className="container flex flex-col items-center justify-between gap-4 sm:flex-row">
         <p className="text-sm text-muted-foreground">
-          &copy; 2024 Blog. All rights reserved.
+          &copy; 2024 Triverse. All rights reserved.
         </p>
         <nav className="flex gap-4">
           <Link

@@ -1,4 +1,4 @@
-import { FeatherIcon, SearchIcon } from "lucide-react";
+import { SearchIcon, Snail } from "lucide-react";
 import Link from "next/link";
 import { Input } from "./ui/input";
 import { ModeToggle } from "./toggle-button";
@@ -8,8 +8,8 @@ const Navbar = () => {
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
         <Link href="/" className="flex items-center space-x-2">
-          <FeatherIcon className="h-6 w-6" />
-          <span className="text-lg font-bold">Blog</span>
+          <Snail className="h-6 w-6" />
+          <span className="text-lg font-bold">Triverse</span>
         </Link>
         <div className="flex items-center space-x-4">
           <nav className="hidden space-x-4 md:flex">
