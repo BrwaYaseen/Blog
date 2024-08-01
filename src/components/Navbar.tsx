@@ -20,22 +20,22 @@ const Navbar = () => {
               Home
             </Link>
             <Link
-              href="/blog"
+              href="/sports"
               className="text-sm font-medium transition-colors hover:text-primary"
             >
-              Blog
+              Sports
             </Link>
             <Link
-              href="/about"
+              href="/science"
               className="text-sm font-medium transition-colors hover:text-primary"
             >
-              About
+              Science
             </Link>
             <Link
-              href="/contact"
+              href="/story"
               className="text-sm font-medium transition-colors hover:text-primary"
             >
-              Contact
+              Stories
             </Link>
           </nav>
           <div className="relative w-full max-w-md">
