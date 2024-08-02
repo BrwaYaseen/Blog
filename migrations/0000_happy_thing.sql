@@ -1,4 +1,10 @@
 DO $$ BEGIN
+ CREATE TYPE "public"."category" AS ENUM('sport', 'science', 'story', 'sidebar');
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
  CREATE TYPE "public"."comment_status" AS ENUM('approved', 'pending');
 EXCEPTION
  WHEN duplicate_object THEN null;
@@ -13,20 +19,21 @@ END $$;
 CREATE TABLE IF NOT EXISTS "comments" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"email" varchar(255) NOT NULL,
-	"content" text NOT NULL,
+	"content" varchar NOT NULL,
 	"status" "comment_status" DEFAULT 'pending' NOT NULL,
 	"post_id" integer NOT NULL,
-	"created_at" timestamp DEFAULT now() NOT NULL
+	"created_at" timestamp DEFAULT now()
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "posts" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"title" varchar(255) NOT NULL,
-	"thumbnail" varchar(255),
-	"content" text NOT NULL,
+	"thumbnail" varchar(1000) NOT NULL,
+	"content" varchar NOT NULL,
+	"category" "category" DEFAULT 'story' NOT NULL,
 	"user_id" integer NOT NULL,
-	"created_at" timestamp DEFAULT now() NOT NULL,
-	"updated_at" timestamp DEFAULT now() NOT NULL
+	"created_at" timestamp DEFAULT now(),
+	"updated_at" timestamp
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "users" (

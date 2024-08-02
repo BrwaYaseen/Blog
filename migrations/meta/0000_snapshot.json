@@ -1,5 +1,5 @@
 {
-  "id": "2bad164a-791a-4571-843e-e5d9589f8bef",
+  "id": "3b04af93-a9d7-4ec7-8473-110dea7e59c3",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -22,7 +22,7 @@
         },
         "content": {
           "name": "content",
-          "type": "text",
+          "type": "varchar",
           "primaryKey": false,
           "notNull": true
         },
@@ -44,7 +44,7 @@
           "name": "created_at",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": "now()"
         }
       },
@@ -85,15 +85,23 @@
         },
         "thumbnail": {
           "name": "thumbnail",
-          "type": "varchar(255)",
+          "type": "varchar(1000)",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "content": {
           "name": "content",
-          "type": "text",
+          "type": "varchar",
           "primaryKey": false,
           "notNull": true
+        },
+        "category": {
+          "name": "category",
+          "type": "category",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'story'"
         },
         "user_id": {
           "name": "user_id",
@@ -105,15 +113,14 @@
           "name": "created_at",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": "now()"
         },
         "updated_at": {
           "name": "updated_at",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
+          "notNull": false
         }
       },
       "indexes": {},
@@ -175,6 +182,16 @@
     }
   },
   "enums": {
+    "public.category": {
+      "name": "category",
+      "schema": "public",
+      "values": [
+        "sport",
+        "science",
+        "story",
+        "sidebar"
+      ]
+    },
     "public.comment_status": {
       "name": "comment_status",
       "schema": "public",
