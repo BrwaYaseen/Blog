@@ -27,7 +27,7 @@ export const postsTable = pgTable("posts", {
   thumbnail: varchar("thumbnail", { length: 1000 }).notNull(),
   content: varchar("content").notNull(),
   category: categoryEnum("category").notNull().default("story"),
-  userId: integer("user_id")
+  userId: varchar("user_id")
     .references(() => usersTable.id)
     .notNull(),
   createdAt: timestamp("created_at").defaultNow(),
