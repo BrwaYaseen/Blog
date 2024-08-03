@@ -1,6 +1,5 @@
 import {
   pgTable,
-  serial,
   varchar,
   timestamp,
   integer,
@@ -10,7 +9,7 @@ import {
 export const roleEnum = pgEnum("role", ["admin", "editor", "user"]);
 
 export const usersTable = pgTable("users", {
-  id: serial("id").primaryKey(),
+  id: varchar("id").primaryKey(),
   email: varchar("email", { length: 255 }).notNull().unique(),
   role: roleEnum("role").notNull().default("user"),
 });
@@ -23,7 +22,7 @@ export const categoryEnum = pgEnum("category", [
 ]);
 
 export const postsTable = pgTable("posts", {
-  id: serial("id").primaryKey(),
+  id: integer("id").primaryKey().generatedAlwaysAsIdentity({ startWith: 1000 }),
   title: varchar("title", { length: 255 }).notNull(),
   thumbnail: varchar("thumbnail", { length: 1000 }).notNull(),
   content: varchar("content").notNull(),
@@ -44,7 +43,7 @@ export const commentStatusEnum = pgEnum("comment_status", [
 ]);
 
 export const commentsTable = pgTable("comments", {
-  id: serial("id").primaryKey(),
+  id: integer("id").primaryKey().generatedAlwaysAsIdentity({ startWith: 1000 }),
   email: varchar("email", { length: 255 }).notNull(),
   content: varchar("content").notNull(),
   status: commentStatusEnum("status").notNull().default("pending"),
