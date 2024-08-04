@@ -1,6 +1,29 @@
-import { clerkMiddleware } from "@clerk/nextjs/server";
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export default clerkMiddleware();
+const isProtectedRoute = createRouteMatcher([
+  "/postspage(.*)",
+  "/userspage(.*)",
+]);
+
+const isHideNavbarRoute = createRouteMatcher([
+  "/postspage(.*)",
+  "/userspage(.*)",
+  "/privacy(.*)",
+]);
+
+export default clerkMiddleware((auth, request: NextRequest) => {
+  const response = NextResponse.next();
+
+  if (isProtectedRoute(request)) {
+    auth().protect();
+  }
+
+  const showNavbar = !isHideNavbarRoute(request);
+  response.headers.set("x-show-navbar", showNavbar.toString());
+
+  return response;
+});
 
 export const config = {
   matcher: [

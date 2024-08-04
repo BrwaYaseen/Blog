@@ -114,3 +114,54 @@ export const createPost = async (
     throw new ApiError("Failed to create post due to unknown reasons");
   }
 };
+
+export const updatePost = async (
+  id: number,
+  post: Partial<Omit<SelectPost, "id">>
+): Promise<void> => {
+  try {
+    const response = await fetchWithRetry(`/api/posts/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(post),
+      cache: "no-store",
+    });
+
+    if (!response.ok) {
+      throw new Error("Error Updating that post");
+    }
+
+    await response.json();
+  } catch (error) {
+    if (isApiError(error)) {
+      throw new ApiError(
+        `Failed Updating that post ${id}`,
+        error.status,
+        error.details
+      );
+    }
+
+    throw new ApiError(`Failed Updating that post ${id} due to known reasons`);
+  }
+};
+
+export const deletePost = async (id: number): Promise<void> => {
+  try {
+    const response = await fetchWithRetry(`/api/posts/${id}`, {
+      method: "DELETE",
+    });
+
+    await response.json();
+  } catch (error) {
+    if (isApiError(error)) {
+      throw new ApiError(
+        `Failed Deleting that post ${id}`,
+        error.status,
+        error.details
+      );
+    }
+    throw new ApiError(`Failed Deleting that post ${id} to unknown reasons`);
+  }
+};
