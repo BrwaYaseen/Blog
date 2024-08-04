@@ -1,7 +1,7 @@
 import { db } from "@/db/db";
 import { InsertPost, postsTable, usersTable } from "@/db/schema";
 import { currentUser } from "@clerk/nextjs/server";
-import { eq } from "drizzle-orm";
+import { eq, SQL } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 class ValidaionError extends Error {
@@ -53,8 +53,18 @@ export async function POST(req: Request) {
   }
 }
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
+    const { searchParams } = new URL(req.url); //Important
+    const category = searchParams.get("category");
+
+    let whereClause: SQL<unknown> | undefined;
+    if (category && category !== "sidebar") {
+      whereClause = eq(
+        postsTable.category,
+        category as "sport" | "science" | "story" | "sidebar"
+      );
+    }
     const posts = await db
       .select({
         id: postsTable.id,
