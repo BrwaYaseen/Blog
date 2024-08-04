@@ -1,4 +1,4 @@
-import { SelectPost } from "@/db/schema";
+import { InsertPost, SelectPost } from "@/db/schema";
 
 export class ApiError extends Error {
   public status?: number;
@@ -48,7 +48,7 @@ export const fetchPosts = async (category?: string): Promise<SelectPost[]> => {
   const url = `${baseUrl}/api/posts${category ? `?category=${category}` : ""}`;
 
   try {
-    const response = await fetchWithRetry(url, { cache: "no-cache" });
+    const response = await fetchWithRetry(url, { cache: "no-store" });
     return await response.json();
   } catch (error) {
     if (isApiError(error)) {
@@ -56,5 +56,61 @@ export const fetchPosts = async (category?: string): Promise<SelectPost[]> => {
     } else {
       throw new Error("Error Fetching posts due to unknown reasons");
     }
+  }
+};
+
+export const fetchPost = async (id: number): Promise<SelectPost | null> => {
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+  const url = `${baseUrl}/api/posts/${id}`;
+
+  try {
+    const response = await fetchWithRetry(url, { cache: "no-store" });
+    if (!response.ok) {
+      throw new Error(`Error fetching post with id ${id}`);
+    }
+
+    const post: SelectPost = await response.json();
+    return post;
+  } catch (error) {
+    if (isApiError(error)) {
+      throw new ApiError(
+        `Error fetching post with id ${id}`,
+        error.status,
+        error.details
+      );
+    } else {
+      throw new Error(
+        `Error fetching post with id ${id} due to unknown reasons`
+      );
+    }
+  }
+};
+
+export const createPost = async (
+  post: InsertPost
+): Promise<SelectPost | null> => {
+  try {
+    const response = await fetchWithRetry("/api/posts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(post),
+    });
+
+    if (response.ok) {
+      return await response.json();
+    } else {
+      throw new Error("post Creation Failed");
+    }
+  } catch (error) {
+    if (isApiError(error)) {
+      throw new ApiError(
+        "Failed creating the post",
+        error.status,
+        error.details
+      );
+    }
+    throw new ApiError("Failed to create post due to unknown reasons");
   }
 };
