@@ -5,7 +5,7 @@ import "quill/dist/quill.snow.css";
 
 interface QuillEditorProps {
   value: string;
-  onChange: (e: { target: { value: string } }) => void;
+  onChange: (value: string) => void;
   placeholder?: string;
 }
 
@@ -57,7 +57,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
           ],
           ALLOWED_ATTR: ["href", "target", "src", "alt", "width", "height"],
         });
-        onChange({ target: { value: sanitizedHtml } });
+        onChange(sanitizedHtml);
       });
 
       // Sanitize initial value
