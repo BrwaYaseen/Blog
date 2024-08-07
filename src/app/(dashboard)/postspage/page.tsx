@@ -1,4 +1,4 @@
-"use client";
+/* "use client";
 
 import FileUpload from "@/components/file-upload";
 import QuillEditor from "@/components/QuillEditor";
@@ -106,3 +106,4 @@ export default function PostsPage() {
     </form>
   );
 }
+ */
