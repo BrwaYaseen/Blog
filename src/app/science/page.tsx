@@ -1,24 +1,48 @@
 import Image from "next/image";
 
-export default function Component() {
+export default function SciencePage() {
   return (
     <div className="flex flex-col lg:flex-row w-full max-w-7xl mx-auto p-4">
       <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="bg-card p-4 rounded-md">
           <h2 className="text-xl font-bold">Post Title 1</h2>
-          <p className="text-muted-foreground">Post content goes here...</p>
+          <Image
+            src="/path/to/post-thumbnail-1.jpg"
+            alt="Post Thumbnail 1"
+            className="w-full h-auto rounded-md"
+            width={400}
+            height={300}
+          />
         </div>
         <div className="bg-card p-4 rounded-md">
           <h2 className="text-xl font-bold">Post Title 2</h2>
-          <p className="text-muted-foreground">Post content goes here...</p>
+          <Image
+            src="/path/to/post-thumbnail-2.jpg"
+            alt="Post Thumbnail 2"
+            className="w-full h-auto rounded-md"
+            width={400}
+            height={300}
+          />
         </div>
         <div className="bg-card p-4 rounded-md">
           <h2 className="text-xl font-bold">Post Title 3</h2>
-          <p className="text-muted-foreground">Post content goes here...</p>
+          <Image
+            src="/path/to/post-thumbnail-3.jpg"
+            alt="Post Thumbnail 3"
+            className="w-full h-auto rounded-md"
+            width={400}
+            height={300}
+          />
         </div>
         <div className="bg-card p-4 rounded-md">
           <h2 className="text-xl font-bold">Post Title 4</h2>
-          <p className="text-muted-foreground">Post content goes here...</p>
+          <Image
+            src="/path/to/post-thumbnail-4.jpg"
+            alt="Post Thumbnail 4"
+            className="w-full h-auto rounded-md"
+            width={400}
+            height={300}
+          />
         </div>
       </div>
       <aside className="w-full lg:w-1/3 lg:ml-6 mt-6 lg:mt-0">
