@@ -9,7 +9,7 @@ import Image from "next/image";
 import FileUpload from "@/components/file-upload";
 import { useUser } from "@clerk/nextjs";
 import toast from "react-hot-toast";
-import { postSchema, TPostsSchema } from "@/lib/types";
+import { postSchema } from "@/lib/types";
 import {
   createPost,
   deletePost,
@@ -18,7 +18,6 @@ import {
   updatePost,
 } from "@/app/api/posts";
 import Editor from "@/components/editor";
-import { JSONContent } from "novel"; // Import JSONContent from novel
 
 const PostPage = () => {
   const [posts, setPosts] = useState<SelectPost[]>([]);
@@ -66,19 +65,6 @@ const PostPage = () => {
     }
   }, [isLoaded, user]);
 
-  const parseContent = (
-    content: string | JSONContent | undefined
-  ): JSONContent | undefined => {
-    if (typeof content === "string") {
-      try {
-        return JSON.parse(content) as JSONContent;
-      } catch (error) {
-        console.error("Failed to parse content as JSON", error);
-        return undefined;
-      }
-    }
-    return content;
-  };
   const loadPosts = async () => {
     try {
       const data = await fetchPosts();
@@ -170,17 +156,12 @@ const PostPage = () => {
           className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         {errors.title && <span>{errors.title.message}</span>}
-        {/*  <Controller
+
+        <Controller
           name="content"
           control={control}
-          defaultValue={parseContent("")}
-          render={({ field: { onChange, value } }) => (
-            <Editor
-              initialValue={parseContent(value)}
-              onChange={(newValue) => onChange(newValue)}
-            />
-          )}
-        /> */}
+          render={({ field }) => <Editor onChange={field.onChange} />}
+        />
         {errors.content && <span>{errors.content.message}</span>}
 
         <div>
