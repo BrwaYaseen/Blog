@@ -9,8 +9,7 @@ import Image from "next/image";
 import FileUpload from "@/components/file-upload";
 import { useUser } from "@clerk/nextjs";
 import toast from "react-hot-toast";
-
-import { postSchema } from "@/lib/types";
+import { postSchema, TPostsSchema } from "@/lib/types";
 import {
   createPost,
   deletePost,
@@ -19,6 +18,7 @@ import {
   updatePost,
 } from "@/app/api/posts";
 import Editor from "@/components/editor";
+import { JSONContent } from "novel"; // Import JSONContent from novel
 
 const PostPage = () => {
   const [posts, setPosts] = useState<SelectPost[]>([]);
@@ -26,7 +26,6 @@ const PostPage = () => {
   const { user, isLoaded } = useUser();
   const [isAdmin, setIsAdmin] = useState(false);
   const [thumbnailUrl, setThumbnailUrl] = useState("");
-  const [content, setContent] = useState("");
 
   const {
     register,
@@ -40,33 +39,46 @@ const PostPage = () => {
   });
 
   useEffect(() => {
+    const syncUserRole = async () => {
+      try {
+        const response = await fetch("/api/sync-user-role");
+        const data = await response.json();
+        if (data.role === "admin") {
+          setIsAdmin(true);
+          loadPosts();
+        } else {
+          setIsAdmin(false);
+        }
+      } catch (error) {
+        console.error("Error syncing user role:", error);
+        setIsAdmin(false);
+      }
+    };
+
     if (isLoaded && user) {
       const userRole = user.publicMetadata.role as string | undefined;
-      console.log("User role from Clerk metadata:", userRole);
-
       if (userRole === "admin") {
         setIsAdmin(true);
         loadPosts();
       } else {
-        fetch("/api/sync-user-role")
-          .then((response) => response.json())
-          .then((data) => {
-            console.log("Synced user role:", data.role);
-            if (data.role === "admin") {
-              setIsAdmin(true);
-              loadPosts();
-            } else {
-              setIsAdmin(false);
-            }
-          })
-          .catch((error) => {
-            console.error("Error syncing user role:", error);
-            setIsAdmin(false);
-          });
+        syncUserRole();
       }
     }
   }, [isLoaded, user]);
 
+  const parseContent = (
+    content: string | JSONContent | undefined
+  ): JSONContent | undefined => {
+    if (typeof content === "string") {
+      try {
+        return JSON.parse(content) as JSONContent;
+      } catch (error) {
+        console.error("Failed to parse content as JSON", error);
+        return undefined;
+      }
+    }
+    return content;
+  };
   const loadPosts = async () => {
     try {
       const data = await fetchPosts();
@@ -79,22 +91,30 @@ const PostPage = () => {
 
   const onSubmit = async (data: InsertPost) => {
     try {
+      const postData = {
+        ...data,
+        content:
+          typeof data.content === "string"
+            ? data.content
+            : JSON.stringify(data.content),
+      };
+
       if (editingPostId !== null) {
-        await updatePost(editingPostId, data);
-        setPosts(
-          posts.map((post) =>
-            post.id === editingPostId ? { ...post, ...data } : post
+        await updatePost(editingPostId, postData);
+        setPosts((prevPosts) =>
+          prevPosts.map((post) =>
+            post.id === editingPostId ? { ...post, ...postData } : post
           )
         );
         toast.success("Post updated successfully");
       } else {
-        const newPost = await createPost(data);
+        const newPost = await createPost(postData);
         if (newPost) {
-          setPosts([newPost, ...posts]);
+          setPosts((prevPosts) => [newPost, ...prevPosts]);
           toast.success("Post created successfully");
         }
       }
-      reset(); // Reset form after submission
+      reset();
       setEditingPostId(null);
     } catch (error) {
       console.error("Error submitting post:", error);
@@ -105,9 +125,7 @@ const PostPage = () => {
   const handleEdit = async (id: number) => {
     try {
       const post = await fetchPost(id);
-      if (!post) {
-        throw new Error("Post not found");
-      }
+      if (!post) throw new Error("Post not found");
 
       setValue("title", post.title);
       setValue("content", post.content);
@@ -123,7 +141,7 @@ const PostPage = () => {
   const handleDelete = async (id: number) => {
     try {
       await deletePost(id);
-      setPosts(posts.filter((post) => post.id !== id));
+      setPosts((prevPosts) => prevPosts.filter((post) => post.id !== id));
       toast.success("Post deleted successfully");
     } catch (error) {
       console.error("Error deleting post:", error);
@@ -142,7 +160,7 @@ const PostPage = () => {
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold flex justify-center mb-6">
-        Create Post
+        {editingPostId ? "Edit Post" : "Create Post"}
       </h1>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <input
@@ -155,23 +173,20 @@ const PostPage = () => {
         {/*  <Controller
           name="content"
           control={control}
-          defaultValue={content ? JSON.parse(content) : undefined}
+          defaultValue={parseContent("")}
           render={({ field: { onChange, value } }) => (
             <Editor
-              initialValue={value}
-              onChange={(value) => onChange(value)}
+              initialValue={parseContent(value)}
+              onChange={(newValue) => onChange(newValue)}
             />
           )}
         /> */}
-
         {errors.content && <span>{errors.content.message}</span>}
 
         <div>
           <FileUpload
             endpoint="imageUploader"
-            onChange={(url) => {
-              setThumbnailUrl(url || ""); // Ensure thumbnailUrl is always a string
-            }}
+            onChange={(url) => setThumbnailUrl(url || "")}
           />
           {thumbnailUrl && (
             <Image
