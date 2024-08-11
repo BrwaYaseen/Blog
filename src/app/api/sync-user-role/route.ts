@@ -7,6 +7,8 @@ import { db } from "@/db/db";
 export async function GET() {
   const { userId } = auth();
 
+  console.log("Queried userId:", userId);
+
   if (!userId) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
