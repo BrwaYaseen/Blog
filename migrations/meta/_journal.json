@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1722640743490,
-      "tag": "0000_happy_thing",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1722682967935,
-      "tag": "0001_acoustic_loki",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1722684390140,
-      "tag": "0002_noisy_vector",
+      "when": 1723377890937,
+      "tag": "0000_thin_avengers",
       "breakpoints": true
     }
   ]

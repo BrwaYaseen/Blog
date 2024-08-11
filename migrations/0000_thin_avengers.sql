@@ -17,7 +17,7 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "comments" (
-	"id" serial PRIMARY KEY NOT NULL,
+	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "comments_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1000 CACHE 1),
 	"email" varchar(255) NOT NULL,
 	"content" varchar NOT NULL,
 	"status" "comment_status" DEFAULT 'pending' NOT NULL,
@@ -26,18 +26,18 @@ CREATE TABLE IF NOT EXISTS "comments" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "posts" (
-	"id" serial PRIMARY KEY NOT NULL,
+	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "posts_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1000 CACHE 1),
 	"title" varchar(255) NOT NULL,
 	"thumbnail" varchar(1000) NOT NULL,
 	"content" varchar NOT NULL,
 	"category" "category" DEFAULT 'story' NOT NULL,
-	"user_id" integer NOT NULL,
+	"user_id" varchar NOT NULL,
 	"created_at" timestamp DEFAULT now(),
 	"updated_at" timestamp
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "users" (
-	"id" serial PRIMARY KEY NOT NULL,
+	"id" varchar PRIMARY KEY NOT NULL,
 	"email" varchar(255) NOT NULL,
 	"role" "role" DEFAULT 'user' NOT NULL,
 	CONSTRAINT "users_email_unique" UNIQUE("email")
