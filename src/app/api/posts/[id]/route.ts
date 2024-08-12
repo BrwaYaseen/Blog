@@ -9,7 +9,7 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
-    const postId = parseInt(params.id, 25);
+    const postId = parseInt(params.id, 10);
     if (isNaN(postId)) {
       throw new Error("Invalid postId");
     }
@@ -49,7 +49,7 @@ export async function PUT(
     Omit<SelectPost, "id">
   >;
   try {
-    const postId = parseInt(params.id, 25);
+    const postId = parseInt(params.id, 10);
     if (isNaN(postId)) {
       throw new Error("Invalid PostID");
     }
@@ -95,7 +95,7 @@ export async function DELETE(
   }
 
   try {
-    const postId = parseInt(params.id, 25);
+    const postId = parseInt(params.id, 10);
 
     if (isNaN(postId)) {
       return NextResponse.json({ error: "Invalid PostID" }, { status: 400 });

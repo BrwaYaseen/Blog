@@ -24,7 +24,6 @@ const PostPage = () => {
   const [editingPostId, setEditingPostId] = useState<number | null>(null);
   const { user, isLoaded } = useUser();
   const [isAdmin, setIsAdmin] = useState(false);
-  const [thumbnailUrl, setThumbnailUrl] = useState("");
 
   const {
     register,
@@ -167,17 +166,36 @@ const PostPage = () => {
         <div>
           <FileUpload
             endpoint="imageUploader"
-            onChange={(url) => setThumbnailUrl(url || "")}
+            onChange={(url) => {
+              setValue("thumbnail", url || "");
+            }}
           />
-          {thumbnailUrl && (
+          {errors.thumbnail && <span>{errors.thumbnail.message}</span>}
+          {control._formValues.thumbnail && (
             <Image
-              src={thumbnailUrl}
+              src={control._formValues.thumbnail}
               alt="Thumbnail preview"
               width={100}
               height={100}
               className="mt-2 rounded-md"
             />
           )}
+        </div>
+        <div>
+          <label htmlFor="category" className="block mb-2 font-semibold">
+            Category
+          </label>
+          <select
+            {...register("category")}
+            id="category"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="sport">Sport</option>
+            <option value="science">Science</option>
+            <option value="story">Story</option>
+            <option value="sidebar">Sidebar</option>
+          </select>
+          {errors.category && <span>{errors.category.message}</span>}
         </div>
         <Button
           type="submit"
