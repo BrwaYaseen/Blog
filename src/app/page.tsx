@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { Input } from "@/components/ui/input";
 import React from "react";
+import parse from "html-react-parser";
 import Image from "next/image";
 import { fetchPost } from "./api/posts";
 export default async function Component() {
@@ -29,7 +29,7 @@ export default async function Component() {
             </div>
 
             <p className="text-muted-foreground">
-              {mainPost?.content?.substring(0, 150)}...
+              {parse(mainPost?.content?.substring(0, 150)!)}...
             </p>
 
             <div className="flex items-center space-x-4">

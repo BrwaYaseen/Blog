@@ -17,7 +17,11 @@ import {
   fetchPosts,
   updatePost,
 } from "@/app/api/posts";
-import Editor from "@/components/editor";
+import dynamic from "next/dynamic";
+
+const QuillEditor = dynamic(() => import("@/components/QuillEditor"), {
+  ssr: false,
+});
 
 const PostPage = () => {
   const [posts, setPosts] = useState<SelectPost[]>([]);
@@ -159,7 +163,9 @@ const PostPage = () => {
         <Controller
           name="content"
           control={control}
-          render={({ field }) => <Editor onChange={field.onChange} />}
+          render={({ field }) => (
+            <QuillEditor value="" onChange={field.onChange} />
+          )}
         />
         {errors.content && <span>{errors.content.message}</span>}
 
