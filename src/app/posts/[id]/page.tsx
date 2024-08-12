@@ -69,10 +69,9 @@ const Page = async ({ params }: PostProps) => {
               />
             </div>
           )}
-          <div
-            className="prose dark:prose-invert max-w-none"
-            dangerouslySetInnerHTML={{ __html: post.content }}
-          />
+          <div className="prose dark:prose-invert max-w-none">
+            {parse(post.content)}
+          </div>
         </CardContent>
       </Card>
     </div>

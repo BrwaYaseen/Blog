@@ -55,17 +55,10 @@ export async function POST(req: Request) {
 
 export async function GET(req: Request) {
   try {
-    const { searchParams } = new URL(req.url); //Important
+    const { searchParams } = new URL(req.url);
     const category = searchParams.get("category");
 
-    let whereClause: SQL<unknown> | undefined;
-    if (category && category !== "sidebar") {
-      whereClause = eq(
-        postsTable.category,
-        category as "sport" | "science" | "story" | "sidebar"
-      );
-    }
-    const posts = await db
+    const baseQuery = db
       .select({
         id: postsTable.id,
         title: postsTable.title,
@@ -80,6 +73,18 @@ export async function GET(req: Request) {
       })
       .from(postsTable)
       .leftJoin(usersTable, eq(postsTable.userId, usersTable.id));
+
+    let posts;
+    if (category && category !== "sidebar") {
+      posts = await baseQuery.where(
+        eq(
+          postsTable.category,
+          category as "sport" | "science" | "story" | "sidebar"
+        )
+      );
+    } else {
+      posts = await baseQuery;
+    }
 
     return NextResponse.json(posts);
   } catch (error) {

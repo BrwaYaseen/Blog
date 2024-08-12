@@ -2,9 +2,12 @@ import Link from "next/link";
 import React from "react";
 import parse from "html-react-parser";
 import Image from "next/image";
-import { fetchPost } from "./api/posts";
+import { fetchPost, fetchPosts } from "./api/posts";
+
 export default async function Component() {
   const mainPost = await fetchPost(1001);
+  const allPosts = await fetchPosts();
+
   return (
     <main>
       <section className="w-full py-12 md:py-24 lg:py-32">
@@ -54,145 +57,29 @@ export default async function Component() {
 
       <section className="w-full py-12 md:py-24 lg:py-32 bg-muted">
         <div className="container grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-12">
-          <div className="group">
-            <Link href="#" prefetch={false}>
-              <div className="relative h-48 overflow-hidden rounded-lg">
-                <Image
-                  src="/placeholder.svg"
-                  alt="Blog Post 1"
-                  width={400}
-                  height={300}
-                  className="h-full w-full object-cover transition-all duration-300 group-hover:scale-105"
-                />
-              </div>
-              <div className="mt-4 space-y-2">
-                <h3 className="text-lg font-semibold transition-colors group-hover:text-primary">
-                  Unleashing the Power of TypeScript: A Beginner&apos;s Guide
-                </h3>
-                <p className="text-muted-foreground line-clamp-2">
-                  Explore the benefits of TypeScript and how it can improve your
-                  JavaScript development experience. From basic types to
-                  advanced features, this guide has you covered.
-                </p>
-              </div>
-            </Link>
-          </div>
-          <div className="group">
-            <Link href="#" prefetch={false}>
-              <div className="relative h-48 overflow-hidden rounded-lg">
-                <Image
-                  src="/placeholder.svg"
-                  alt="Blog Post 1"
-                  width={400}
-                  height={300}
-                  className="h-full w-full object-cover transition-all duration-300 group-hover:scale-105"
-                />
-              </div>
-              <div className="mt-4 space-y-2">
-                <h3 className="text-lg font-semibold transition-colors group-hover:text-primary">
-                  Unleashing the Power of TypeScript: A Beginner&apos;s Guide
-                </h3>
-                <p className="text-muted-foreground line-clamp-2">
-                  Explore the benefits of TypeScript and how it can improve your
-                  JavaScript development experience. From basic types to
-                  advanced features, this guide has you covered.
-                </p>
-              </div>
-            </Link>
-          </div>
-          <div className="group">
-            <Link href="#" prefetch={false}>
-              <div className="relative h-48 overflow-hidden rounded-lg">
-                <Image
-                  src="/placeholder.svg"
-                  alt="Blog Post 1"
-                  width={400}
-                  height={300}
-                  className="h-full w-full object-cover transition-all duration-300 group-hover:scale-105"
-                />
-              </div>
-              <div className="mt-4 space-y-2">
-                <h3 className="text-lg font-semibold transition-colors group-hover:text-primary">
-                  Unleashing the Power of TypeScript: A Beginner&apos;s Guide
-                </h3>
-                <p className="text-muted-foreground line-clamp-2">
-                  Explore the benefits of TypeScript and how it can improve your
-                  JavaScript development experience. From basic types to
-                  advanced features, this guide has you covered.
-                </p>
-              </div>
-            </Link>
-          </div>
-          <div className="group">
-            <Link href="#" prefetch={false}>
-              <div className="relative h-48 overflow-hidden rounded-lg">
-                <Image
-                  src="/placeholder.svg"
-                  alt="Blog Post 1"
-                  width={400}
-                  height={300}
-                  className="h-full w-full object-cover transition-all duration-300 group-hover:scale-105"
-                />
-              </div>
-              <div className="mt-4 space-y-2">
-                <h3 className="text-lg font-semibold transition-colors group-hover:text-primary">
-                  Unleashing the Power of TypeScript: A Beginner&apos;s Guide
-                </h3>
-                <p className="text-muted-foreground line-clamp-2">
-                  Explore the benefits of TypeScript and how it can improve your
-                  JavaScript development experience. From basic types to
-                  advanced features, this guide has you covered.
-                </p>
-              </div>
-            </Link>
-          </div>
-          <div className="group">
-            <Link href="#" prefetch={false}>
-              <div className="relative h-48 overflow-hidden rounded-lg">
-                <Image
-                  src="/placeholder.svg"
-                  alt="Blog Post 1"
-                  width={400}
-                  height={300}
-                  className="h-full w-full object-cover transition-all duration-300 group-hover:scale-105"
-                />
-              </div>
-              <div className="mt-4 space-y-2">
-                <h3 className="text-lg font-semibold transition-colors group-hover:text-primary">
-                  Unleashing the Power of TypeScript: A Beginner&apos;s Guide
-                </h3>
-                <p className="text-muted-foreground line-clamp-2">
-                  Explore the benefits of TypeScript and how it can improve your
-                  JavaScript development experience. From basic types to
-                  advanced features, this guide has you covered.
-                </p>
-              </div>
-            </Link>
-          </div>
-          <div className="group">
-            <Link href="#" prefetch={false}>
-              <div className="relative h-48 overflow-hidden rounded-lg">
-                <Image
-                  src="/placeholder.svg"
-                  alt="Blog Post 1"
-                  width={400}
-                  height={300}
-                  className="h-full w-full object-cover transition-all duration-300 group-hover:scale-105"
-                />
-              </div>
-              <div className="mt-4 space-y-2">
-                <h3 className="text-lg font-semibold transition-colors group-hover:text-primary">
-                  Unleashing the Power of TypeScript: A Beginner&apos;s Guide
-                </h3>
-                <p className="text-muted-foreground line-clamp-2">
-                  Explore the benefits of TypeScript and how it can improve your
-                  JavaScript development experience. From basic types to
-                  advanced features, this guide has you covered.
-                </p>
-              </div>
-            </Link>
-          </div>
-          {/* Repeat the above structure for the other 5 blog posts */}
+          {allPosts.map((post) => (
+            <div key={post.id} className="group">
+              <Link href={`/posts/${post.id}`} prefetch={false}>
+                <div className="relative h-48 overflow-hidden rounded-lg">
+                  <Image
+                    src={post.thumbnail || "/placeholder.svg"}
+                    alt={post.title}
+                    width={400}
+                    height={300}
+                    className="h-full w-full object-cover transition-all duration-300 group-hover:scale-105"
+                  />
+                </div>
+                <div className="mt-4 space-y-2">
+                  <h3 className="text-lg font-semibold transition-colors group-hover:text-primary">
+                    {post.title}
+                  </h3>
+                  <p className="text-muted-foreground line-clamp-2">
+                    {parse(post.content)}
+                  </p>
+                </div>
+              </Link>
+            </div>
+          ))}
         </div>
       </section>
     </main>
